@@ -18,6 +18,7 @@ public class JavaLabProject {
         // TODO code application logic here
         System.out.println("fdv");
         System.out.println("hhhhhh");
+        System.out.println("my name is mohammad");
     }
     
 }
