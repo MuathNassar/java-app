@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java;
+package javalabproject;
 
 /**
  *
  * @author m-a-s
  */
-public class Java {
+public class JavaLabProject {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("jhogl");
+        System.out.println("fdv");
+        System.out.println("hhhhhh");
     }
     
 }
