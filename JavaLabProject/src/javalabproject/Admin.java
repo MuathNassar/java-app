@@ -10,16 +10,16 @@ package javalabproject;
  * @author m-a-s
  */
 public class Admin{
-int id ;
+String id ;
 String password;
-    public Admin(int id, String password) {
+    public Admin(String id, String password) {
         this.id=id;
         this.password=password;
     }
     public static void addManager(){
         System.out.println("enter id ");
     }
-    public static void admin(){
+    public static void adminInterface(String id, String password, String fileName){
         System.out.println("Add Manager");
         addManager();
         
