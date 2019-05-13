@@ -144,7 +144,6 @@ public class Employee {
    }
         
     }
-    
      public static ArrayList<ArrayList> getEmpFile(){
     ArrayList<ArrayList> allRows = new ArrayList<>();   
     ArrayList<String> row = new ArrayList<>();
@@ -167,8 +166,7 @@ try {
         Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
     }  
       return allRows;
-    }
-     
+    }     
      private static void writeRowsToFile(ArrayList<ArrayList> rows){
         ;
     try {
@@ -189,8 +187,7 @@ try {
         Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
     }
       
-    }
-     
+    }   
      public void timeOfAttendance(){
          System.out.println("Enter the time:");
          checkIn = new Scanner(System.in).nextLine();
@@ -208,8 +205,6 @@ try {
   
    }
      }
-     
-     
       public void timeOfDeparture(){
          System.out.println("Enter the time:");
          checkIn = new Scanner(System.in).nextLine();
