@@ -38,9 +38,9 @@ public class JavaLabProject {
 //                
 //       }
     //area to try start
-   
-        Admin.deactivateManager();
-    
+   Employee e = new Employee(1);
+        e.timeOfDeparture();
+
     //area to try end   
 
     } 

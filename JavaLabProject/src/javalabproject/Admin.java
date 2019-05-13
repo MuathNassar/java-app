@@ -21,6 +21,8 @@ import java.util.logging.Logger;
  * @author m-a-s
  */
 public class Admin{
+
+   
 private int id ;
 private String password;
 private static String mgrPath = "manager.txt";
@@ -90,6 +92,12 @@ private static File mgrFile = new  File(mgrPath);
    }
    if(!isFound){System.out.println("There is no manager who has an ID = "+id);}
     }
+    public static void updateManager(){
+        System.out.println("Enter manager's ID:");
+        int id = new Scanner(System.in).nextInt();
+        updateManager(id);
+    }
+    
     private static void writeRowsToFile(ArrayList<ArrayList> rows){
         ;
     try {
@@ -147,12 +155,15 @@ try {
              isFound = true;
              break;
        }
-      
-           
-        
+  
    }
    if(!isFound)
       {System.out.println("There is no manager who has an ID = "+id);}    
+    }
+     private static void deleteManager() {
+        System.out.println("Enter manager's ID:");
+        int id = new Scanner(System.in).nextInt();
+        deleteManager(id);
     }
     public static void searchForManager(int id){
          ArrayList<ArrayList> data = getMgrFile();
@@ -173,6 +184,11 @@ try {
            System.out.println("There is no manager who has an ID = "+id);
        }
         
+    }
+    public static void searchForManager(){
+       System.out.println("Enter manager's ID:");
+        int id = new Scanner(System.in).nextInt();
+        searchForManager(id); 
     }
     public static void reportManager(int id) {
           ArrayList<ArrayList> data = getMgrFile();
@@ -283,12 +299,101 @@ try {
          int id = new Scanner(System.in).nextInt();
          deactivateManager(id);
      }
-    
-
-    
-   
+    public static void adminInterface(){
+        System.out.println(">>>>>Admin<<<<<");
+        System.out.println("1- Add Manager.");
+        System.out.println("2- Update Manager.");
+        System.out.println("3- Delete Manager.");
+        System.out.println("4- Search About Manager.");
+        System.out.println("5- Report About Manager.");
+        System.out.println("6- Report About All Manager.");
+        System.out.println("7- Holiday Requests.");
+        System.out.println("8- Deactivate & Activate Stuff.");
+        System.out.println("9- Exit.");
+        Scanner keyboard = new Scanner(System.in);
+        int choice = keyboard.nextInt();
+        switch (choice){
+            case 1:
+               addManager();
+            break;
+            case 2:
+                 updateManager();
+            break;
+            case 3:
+                 deleteManager();
+            break;
+            case 4:
+                  searchForManager();
+            break;
+            case 5:
+                  reportManager();
+            break;
+            case 6:
+                 reportAllManagers();
+            break;
+            case 7:
+                {
+                    System.out.println(">>>>> Holiday Requests <<<<<");
+                    System.out.println("1- Show requsts");
+                    System.out.println("2- Accept the holiday");
+                    System.out.println("3- Reject the holiday");
+                    System.out.println("4- Exit.");
+                    int choose = new Scanner(System.in).nextInt();
+                    switch (choose) {
+                        case 1:
+                            
+                            break;
+                        case 2:
+                           
+                            break;
+                        case 3:
+                            
+                            break; 
+                        case 4:
+                            
+                            break; 
+                        default:
+                            System.out.println("Please Enter valid number");
+                            adminInterface();
+                }
+                }   
+            break;
+            
+            case 8:
+                {
+                    System.out.println(">>>>> Deactivate & Activate <<<<<");
+                    System.out.println("1- Activate.");
+                    System.out.println("2- deactivate.");
+                    System.out.println("3- Exit.");
+                    int choose = new Scanner(System.in).nextInt();
+                    switch (choose) {
+                        case 1:
+                            activateManager();
+                            break;
+                        case 2:
+                            deactivateManager();
+                            break;
+                        case 3:
+                            System.exit(0);
+                            break;
+                     default:
+                    System.out.println("Please Enter valid number");
+                    adminInterface();
+                            
+                    }
+                }   
+            break;
+            case 9:
+                 System.exit(0);
+            break;
+             default:
+                            System.out.println("Please Enter valid number");
+                            adminInterface();
+        }
+            
+                    
+     adminInterface();
+    }
+  
 }
-     
-   
-
 
