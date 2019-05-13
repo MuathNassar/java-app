@@ -7,6 +7,7 @@ package javalabproject;
 
 import java.util.Scanner;
 import java.lang.String;
+import java.util.ArrayList;
 
 
 /**
@@ -37,8 +38,8 @@ public class JavaLabProject {
 //                
 //       }
     //area to try start
-    Admin a = new Admin();
-    a.addManager();
+   
+        Admin.deactivateManager();
     
     //area to try end   
 

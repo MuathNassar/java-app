@@ -42,12 +42,12 @@ public class Manager {
         try {
             FileWriter fw = new FileWriter(file, true);
             PrintWriter pw = new PrintWriter(fw, true);
-            fw.write("\r");
-            String writeInfo = ("\nID:"+id +" "+"NAME:"+ name +" "+"PASSWORD:"+ password +" "+"EMAIL:"+ email +" "+"PHONE_NUMBER:"+ phoneNumber +" "+"STATUS:"+ status);
-            fw.write(writeInfo);
+           
+            String writeInfo = ("\nID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"STATUS: "+ status + " ;");
+            pw.println(writeInfo);
             
-            fw.flush();
-            fw.close();
+            pw.flush();
+            pw.close();
             
         } catch (IOException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
