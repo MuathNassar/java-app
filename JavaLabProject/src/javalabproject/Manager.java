@@ -17,13 +17,16 @@ import java.util.logging.Logger;
  * @author moadn
  */
 public class Manager {
+    
+   
     int id;
     String name;
     String password;
     String email;
     String phoneNumber;
     int status;
-    
+
+
     
     //Constructor to make Managers >>> Created by Muath
 
@@ -37,22 +40,12 @@ public class Manager {
         
         //Write information of manager to txt file
         
-         String path = "manager.txt";
-        File file = new File(path);
-        try {
-            FileWriter fw = new FileWriter(file, true);
-            PrintWriter pw = new PrintWriter(fw, true);
-           
-            String writeInfo = ("\nID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"STATUS: "+ status + " ;");
-            pw.println(writeInfo);
-            
-            pw.flush();
-            pw.close();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
+    public void managerInterfase(){
+        
+    }
+    
     
     
     
