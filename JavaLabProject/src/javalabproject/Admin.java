@@ -36,8 +36,7 @@ private static File mgrFile = new  File(mgrPath);
         this.id=id;
         this.password=password;
         
-    }
-    
+    }  
     public static void addManager(){
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Enter Manager's ID:");
@@ -71,7 +70,7 @@ private static File mgrFile = new  File(mgrPath);
             FileWriter fw = new FileWriter(file, true);
             PrintWriter pw = new PrintWriter(fw, true);
            
-            String writeInfo = ("\nID: "+mId +" "+"NAME: "+mName +" "+"PASSWORD: "+ mPassword +" "+"EMAIL: "+ mEmail +" "+"PHONE_NUMBER: "+ mPhoneNumber +" "+"STATUS: "+ mStatus + " ;");
+            String writeInfo = ("ID: "+mId +" "+"NAME: "+mName +" "+"PASSWORD: "+ mPassword +" "+"EMAIL: "+ mEmail +" "+"PHONE_NUMBER: "+ mPhoneNumber +" "+"STATUS: "+ mStatus + " ;");
             pw.println(writeInfo);
             
             pw.flush();
@@ -83,10 +82,6 @@ private static File mgrFile = new  File(mgrPath);
     
         
     }
-
-  
-    
-    
     public static void updateManager(int id){
        
    ArrayList<ArrayList> data = getMgrFile();
@@ -112,8 +107,7 @@ private static File mgrFile = new  File(mgrPath);
         System.out.println("Enter manager's ID:");
         int id = new Scanner(System.in).nextInt();
         updateManager(id);
-    }
-    
+    }  
     private static void writeRowsToFile(ArrayList<ArrayList> rows){
         ;
     try {

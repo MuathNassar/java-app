@@ -22,7 +22,12 @@ import static javalabproject.Admin.adminInterface;
 public class Main {
     public static void main(String[] args) {
         
-       Holiday j = new  Holiday("aaaaa");
+
+
+
+    }
+    public static  void startup(){
+             Holiday j = new  Holiday("aaaaa");
        j.setDetails("no");
        j.setDate("11/8/888");
        j.setReason("no reason");
@@ -41,14 +46,8 @@ public class Main {
             case "3":             login("employee");
                 break;            
                 
-       }
-    //area to try start
-//   Employee e = new Employee(1);
-//        e.timeOfDeparture();
-
-    //area to try end   
-
-    } 
+       }  
+    }
     
     public static boolean login(String fileName){
         Scanner s = new Scanner(System.in);
