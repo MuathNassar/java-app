@@ -20,11 +20,22 @@ import java.util.logging.Logger;
 public class Main {
     public static void main(String[] args) {
         
-       Holiday j = new  Holiday("aaaaa");
-       j.setDetails("no");
-       j.setDate("11/8/888");
-       j.setReason("no reason");
-        System.out.println(j.toString());
+//       Holiday j = new  Holiday("aaaaa");
+//       j.setDetails("no");
+//       j.setDate("11/8/888");
+//       j.setReason("no reason");
+//       System.out.println(j.toString());
+//       
+//       Holiday j1 = new  Holiday("bbbbb");
+//       j.setDetails("yes");
+//       j.setDate("11/8/558");
+//       j.setReason("no reason");
+//       System.out.println(j.toString());
+//       
+//        ArrayList<Holiday> list = new ArrayList<>();
+//        list.add(j);
+//        list.add(j1);
+Admin.ad
         
     }
     
