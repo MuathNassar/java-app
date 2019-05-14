@@ -37,6 +37,7 @@ private static File mgrFile = new  File(mgrPath);
         this.password=password;
         
     }
+    
     public static void addManager(){
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Enter Manager's ID:");
@@ -59,12 +60,27 @@ private static File mgrFile = new  File(mgrPath);
        //new entery
         System.out.println("Enter Manager's status:");
         int mStatus = keyboard.nextInt();
-      
+        String pathManager = "manager.txt";
+
     
         //End of entries
-        new Manager(mId, mName, mPassword, mEmail, mPhoneNumber, mStatus);
         System.out.println("The manager "+ mName +" has been added successfully");
-        
+        try {
+            
+            File file = new File(pathManager);
+            FileWriter fw = new FileWriter(file, true);
+            PrintWriter pw = new PrintWriter(fw, true);
+           
+            String writeInfo = ("\nID: "+mId +" "+"NAME: "+mName +" "+"PASSWORD: "+ mPassword +" "+"EMAIL: "+ mEmail +" "+"PHONE_NUMBER: "+ mPhoneNumber +" "+"STATUS: "+ mStatus + " ;");
+            pw.println(writeInfo);
+            
+            pw.flush();
+            pw.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
         
     }
 
@@ -126,7 +142,6 @@ try {
             if (!x.equals(";")) {
                 row.add(x);
             }else{
-                
                 allRows.add((ArrayList) row.clone());
                row.clear();
                 
