@@ -33,7 +33,7 @@ public class Employee {
     private static File empFile = new  File(empPath);
     private static String holPath = "holidays.txt";
     private static File holFile = new  File(holPath);
-    
+    //getters
      public int getId() {
         return id;
         }
@@ -65,13 +65,11 @@ public class Employee {
     public String getCheckIn() {
         return checkIn;
     }
-
-    //getters
+    
     public String getCheckOut() {    
         return checkOut;
     }
-
-    //
+//getters
     public Employee() {
     }
     public Employee(int id) {
@@ -222,4 +220,5 @@ try {
   
    }
      }
+      
 }
