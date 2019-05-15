@@ -23,7 +23,14 @@ import static javalabproject.Admin.adminInterface;
  */
 public class Main {
     public static void main(String[] args) {
+
    }
+
+        
+   
+
+   
+
     public static  void startup(){
              Holiday j = new  Holiday("aaaaa");
        j.setDetails("no");
@@ -62,12 +69,10 @@ public class Main {
             if(fileName.equals("admin")){
                 adminInterface();
             }
-//            if(fileName.equals("manager")&& id.equals(1) && password.equals("efd")){
-//                Admin admin1 = new Admin(id, password);
-//            }
-//            if(fileName.equals("employeee")&& id.equals("1") && password.equals("efd")){
-//                Admin admin1 = new Admin(id, password);
-//            }
+            if(fileName.equals("manager")){
+            }
+            if(fileName.equals("employeee")&& id.equals("1") && password.equals("efd")){
+            }
             return false;
         }
 
