@@ -5,14 +5,16 @@
  */
 package javalabproject;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static javalabproject.Admin.adminInterface;
 
 /**
@@ -21,11 +23,10 @@ import static javalabproject.Admin.adminInterface;
  */
 public class Main {
     public static void main(String[] args) {
-        
-            startup();
-
-
-    }
+        Holiday.showAllHolidays();
+//        Employee emp = new Employee(15);
+//        emp.createHoliday();
+   }
     public static  void startup(){
              Holiday j = new  Holiday("aaaaa");
        j.setDetails("no");

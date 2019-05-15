@@ -22,12 +22,17 @@ import java.util.logging.Logger;
  * @author moadn
  */
 public class Holiday implements Serializable{
-    private String name;
-    private String reason;
-    private String Details;
-    private String date;
+    private int id = 0;
+    private String name = "Unknown";
+    private String reason = "No reson";
+    private String Details = "No Details";
+    private String date = "Current day";
     private int check =0;
     private static final File holFile = new File("holidays.txt");
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -48,6 +53,11 @@ public class Holiday implements Serializable{
     public int getCheck() {
         return check;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 
     public void setName(String name) {
         this.name = name;
@@ -79,22 +89,24 @@ public class Holiday implements Serializable{
         this.reason = reason;
         this.Details = Details;
         this.date = date;
-        this.writeHolidayToFile();
         
     }
     public void writeHolidayToFile(){
+        ArrayList<Holiday> data = getHolData();
         try {
             ObjectOutputStream os;
             try (FileOutputStream fo = new FileOutputStream(holFile,false)) {
-                os = new ObjectOutputStream(fo);            
-                ArrayList<Holiday> data = getHolData();
+                os = new ObjectOutputStream(fo);                         
                 if (data.isEmpty()) {
                     ArrayList<Holiday> list = new ArrayList<>();
                    list.add(this);
                     os.writeObject(list);
+                    System.out.println("Add new Holiday with new Array");
                     
                 }else{
-                    os.writeObject(data.add(this));
+                    data.add(this);
+                    os.writeObject(data);
+                    System.out.println("Add new Holiday to array ");
                 }
             }
             os.close();
@@ -103,31 +115,39 @@ public class Holiday implements Serializable{
             Logger.getLogger(Holiday.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Holiday.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
- public static ArrayList<Holiday> getHolData(){
-     ObjectInputStream objectInputStream = null;
-      ArrayList<Holiday> data = new ArrayList<>();
+    public static ArrayList<Holiday> getHolData(){
+     
+    ArrayList<Holiday> data = new ArrayList<>();
       
         try {
-           
-            objectInputStream = new ObjectInputStream(new FileInputStream(holFile));
-           data = (ArrayList<Holiday>) objectInputStream.readObject();
+           ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(holFile));
+           Object x = objectInputStream.readObject();
+           data = (ArrayList<Holiday>)x;
            objectInputStream.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Holiday.class.getName()).log(Level.SEVERE, null, ex);
+          
         } catch (IOException | ClassNotFoundException ex) { 
             Logger.getLogger(Holiday.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            
         }
            
             return data;
         }
- 
-
+    public static void showAllHolidays(){
+        ArrayList<Holiday> list = getHolData();
+        for (Holiday h: list) {
+            System.out.println(h.toString());
+            
+        }
+    }
     @Override
     public String toString() {
-        return "Holiday{" + "name=" + name + ", reason=" + reason + ", Details=" + Details + ", date=" + date + ", check=" + check + '}';
-    }
-    
+        return "id:" + id + " || name:" + name + " || reason:" + reason + " || Details:" + Details + " || date:" + date + " || check=" + check ;
+    }  
   }  
 

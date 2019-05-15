@@ -142,7 +142,7 @@ public class Employee {
    }
         
     }
-     public static ArrayList<ArrayList> getEmpFile(){
+    public static ArrayList<ArrayList> getEmpFile(){
     ArrayList<ArrayList> allRows = new ArrayList<>();   
     ArrayList<String> row = new ArrayList<>();
 try {
@@ -165,7 +165,7 @@ try {
     }  
       return allRows;
     }     
-     private static void writeRowsToFile(ArrayList<ArrayList> rows){
+    private static void writeRowsToFile(ArrayList<ArrayList> rows){
         ;
     try {
         File file = new File("managersUpdate.txt");//file temp
@@ -186,7 +186,7 @@ try {
     }
       
     }   
-     public void timeOfAttendance(){
+    public void timeOfAttendance(){
          System.out.println("Enter the time:");
          checkIn = new Scanner(System.in).nextLine();
          ArrayList<ArrayList> data = new ArrayList<>();
@@ -203,7 +203,7 @@ try {
   
    }
      }
-      public void timeOfDeparture(){
+    public void timeOfDeparture(){
          System.out.println("Enter the time:");
          checkIn = new Scanner(System.in).nextLine();
          ArrayList<ArrayList> data = new ArrayList<>();
@@ -220,5 +220,21 @@ try {
   
    }
      }
+    public void createHoliday(){
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Enter name:");
+        String name = keyboard.nextLine();
+        System.out.println("Enter reason:");
+        String reason = keyboard.nextLine();
+        System.out.println("Enter details:");
+        String details = keyboard.nextLine();
+        System.out.println("Enter date:");
+        String date = keyboard.nextLine();
+        //End of inputs
+        Holiday holiday = new Holiday(name, reason, details, date);
+        holiday.setId(id);
+        holiday.writeHolidayToFile();
+
+    }
       
 }
