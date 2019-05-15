@@ -35,7 +35,6 @@ private static File mgrFile = new  File(mgrPath);
     public Admin(int id, String password) {
         this.id=id;
         this.password=password;
-        
     }  
     public static void addManager(){
         Scanner keyboard = new Scanner(System.in);
@@ -59,14 +58,13 @@ private static File mgrFile = new  File(mgrPath);
        //new entery
         System.out.println("Enter Manager's status:");
         int mStatus = keyboard.nextInt();
-        String pathManager = "manager.txt";
 
     
         //End of entries
         System.out.println("The manager "+ mName +" has been added successfully");
         try {
             
-            File file = new File(pathManager);
+            File file = new File(mgrPath);
             FileWriter fw = new FileWriter(file, true);
             PrintWriter pw = new PrintWriter(fw, true);
            
