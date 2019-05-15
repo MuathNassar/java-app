@@ -23,9 +23,6 @@ import static javalabproject.Admin.adminInterface;
  */
 public class Main {
     public static void main(String[] args) {
-        Holiday.showAllHolidays();
-//        Employee emp = new Employee(15);
-//        emp.createHoliday();
    }
     public static  void startup(){
              Holiday j = new  Holiday("aaaaa");
