@@ -87,8 +87,8 @@ public class Employee {
               this.phoneNumber = row.get(9);
               this.status = Integer.parseInt(row.get(11)) ;
               this.type = Integer.parseInt(row.get(13));
-              this.checkIn = row.get(15);
-              this.checkOut = row.get(17);
+//              this.checkIn = row.get(15);
+//              this.checkOut = row.get(17);
               
          
              break;
@@ -236,5 +236,84 @@ try {
         holiday.writeHolidayToFile();
 
     }
-      
+    public void myHolidays(){
+       ArrayList<Holiday> listOfAllHolidays = Holiday.getHolData();
+       ArrayList<Holiday> listOfMyHolidays = new ArrayList<>();
+       for(Holiday h : listOfAllHolidays){
+           if (h.getId() == this.id) {
+               listOfMyHolidays.add(h);
+           }
+       }
+       for(Holiday hol : listOfMyHolidays){
+           System.out.println(hol.toString());
+       }
+    }
+    public void employeeInterface(){
+        Scanner keyboadrd = new Scanner(System.in);
+        System.out.println(">>>>>Employee<<<<<");
+        System.out.println("1- Change Password");
+        System.out.println("2- Attendance");
+        System.out.println("3- Holiday");
+        System.out.println("4- Exit");
+        
+        int choice = keyboadrd.nextInt();//Enter choice noe
+        switch (choice) {
+            case 1:
+                changePassword();
+                break;
+            case 2:
+                {
+                    System.out.println(">>>>>Attendance<<<<<");
+                    System.out.println("1- Time of Attendence.");
+                    System.out.println("2- Time of leave.");
+                    System.out.println("3- Exit");
+                    int attChouce = keyboadrd.nextInt();
+                    switch(attChouce){
+                        case 1:
+                            timeOfAttendance();
+                            break;
+                        case 2:
+                            timeOfDeparture();
+                            break;
+                        case 3:
+                            System.exit(0);
+                            break;
+                        default:
+                            employeeInterface();
+                            
+                    }
+                }
+                break;
+            case 3:
+            {
+                System.out.println(">>>>>Holiday<<<<<");
+                System.out.println("1-My Holidays");
+                System.out.println("2- Create Holiday");
+                System.out.println("3- Exit");
+                int holCoice  = keyboadrd.nextInt();
+                 switch(holCoice){
+                        case 1:
+                            myHolidays();
+                            break;
+                        case 2:
+                            createHoliday();
+                            break;
+                        case 3:
+                            System.exit(0);
+                            break;
+                        default:
+                            employeeInterface();
+                            
+                    }
+                
+            }
+                break;
+            case 4:
+                System.exit(0);
+                break;
+            default:
+                employeeInterface();
+        }
+        employeeInterface();
+    }
 }

@@ -28,7 +28,7 @@ public class Holiday implements Serializable{
     private String Details = "No Details";
     private String date = "Current day";
     private int check =0;
-    private static final File holFile = new File("holidays.txt");
+    public static final File holFile = new File("holidays.txt");
 
     public int getId() {
         return id;

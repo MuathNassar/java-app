@@ -7,8 +7,10 @@ package javalabproject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,8 +111,8 @@ private static File mgrFile = new  File(mgrPath);
     private static void writeRowsToFile(ArrayList<ArrayList> rows){
         ;
     try {
-        File file = new File("managersUpdate.txt");//file temp
-       FileWriter fw = new FileWriter(file,false);
+        
+       FileWriter fw = new FileWriter(mgrFile,false);
         PrintWriter pw = new PrintWriter(fw);
         for(ArrayList<String> row : rows ){
             pw.println(row.get(0)+" "+row.get(1)+" "+row.get(2)+" "+row.get(3)+" "+row.get(4)+" "+row.get(5)+" "+row.get(6)+" "+row.get(7)+" "+row.get(8)+" "+row.get(9)+" "+row.get(10)+" "+row.get(11)+" ;");
@@ -306,6 +308,7 @@ try {
          int id = new Scanner(System.in).nextInt();
          deactivateManager(id);
      }
+    
     public static void adminInterface(){
         System.out.println(">>>>>Admin<<<<<");
         System.out.println("1- Add Manager.");
@@ -348,13 +351,13 @@ try {
                     int choose = new Scanner(System.in).nextInt();
                     switch (choose) {
                         case 1:
-                            
+                           Holiday.showAllHolidays();
                             break;
                         case 2:
-                           
+                            acceptHoliday();
                             break;
                         case 3:
-                            
+                            rejectHoliday();
                             break; 
                         case 4:
                             
@@ -401,6 +404,61 @@ try {
                     
      adminInterface();
     }
-  
-}
+    
+    public static void acceptHoliday(){
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println(">>>>>>Accept the Holiday<<<<<<");
+        System.out.println("Enter Holiday id");
+        int id  = keyboard.nextInt();
+        ArrayList<Holiday> listOfHolidays = Holiday.getHolData();
+        for(Holiday holiday: listOfHolidays){
+            if (holiday.getId() == id) {
+                holiday.setCheck(1); 
+                break;
+            }
+        }
+          //Write holday to file start
+          
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(Holiday.holFile,false));
+                objectOutputStream.writeObject(listOfHolidays);
+                objectOutputStream.close();
+                System.out.println("Holyday is approved now");
+                //Write holday to file end
+            } catch (IOException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+    
+        public static void rejectHoliday(){
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println(">>>>>>Reject the Holiday<<<<<<");
+        System.out.println("Enter Holiday id");
+        int id  = keyboard.nextInt();
+        ArrayList<Holiday> listOfHolidays = Holiday.getHolData();
+        for(Holiday holiday: listOfHolidays){
+            if (holiday.getId() == id) {
+                holiday.setCheck(2); 
+                break;
+            }
+        }
+          //Write holday to file start
+          
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(Holiday.holFile,false));
+                objectOutputStream.writeObject(listOfHolidays);
+                objectOutputStream.close();
+                System.out.println("Holyday is rejected :( ");
+                //Write holday to file end
+            } catch (IOException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+      
+        
+    }
+
 

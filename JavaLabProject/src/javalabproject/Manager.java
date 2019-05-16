@@ -6,6 +6,7 @@
 package javalabproject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,14 +29,54 @@ public class Manager {
     static Scanner addEmployee =new Scanner(System.in);
     private static String mgrPath = "employee.txt";
     private static File mgrFile = new  File(mgrPath);
+public static ArrayList<ArrayList> readFile(){
+        ArrayList<ArrayList> allRows=new ArrayList<>();
+        ArrayList<String> oneRow = new ArrayList<>();
+        try {
+            Scanner read=new Scanner(mgrFile);
+            while (read.hasNext()) {
+                String world = read.next();
+                if (!world.equals(";")) {
+                    oneRow.add(world);
+                }else{
+                    allRows.add((ArrayList)oneRow.clone());
+                    oneRow.clear();
+                }
+//                read.close();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return allRows;
+    }
+    
+    public static void writeArrayToFile(ArrayList<ArrayList> allRow){
+        boolean coun=false;
+        for (ArrayList<String> onerow : allRow) {
+            addToFile(onerow.get(1), onerow.get(3),onerow.get(5),onerow.get(7), onerow.get(9), onerow.get(11), onerow.get(13), onerow.get(15), onerow.get(17), coun);
+            coun=true;
 
+        }
+    }
+    public static void addToFile(String id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas,String checkIn,String checkOut,boolean isTrue){
+        try {
+            //add one emp
+            FileWriter fw =new FileWriter(mgrFile,isTrue);
+            PrintWriter pr =new PrintWriter(fw,true);
+            String rightInfo=("ID: "+id +" "+"NAME: "+name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"Type_Of_Employee: "+ typeOfEmployee +" STATUS: "+ statas +" "+
+                    "CHECK_IN: "+ checkIn+" CHECK_OUT: "+checkOut+ " ;");
+            pr.println(rightInfo);
+            pr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private static void addEmployee() {
-        //entering employee info by mohammad
+        //entering employee info -by mohammad
         System.out.print("<<<<< Add Employee >>>>>\n"
                 + "Enter Id ");
-        int id =addEmployee.nextInt();
+        String id =addEmployee.nextLine();
         System.out.print("Enter name : ");
-        String proiority =addEmployee.nextLine();
         String name =addEmployee.nextLine();
         System.out.print("Enter password : ");
         String password =addEmployee.nextLine();
@@ -47,72 +88,99 @@ public class Manager {
         String typeOfEmployee =addEmployee.nextLine();
         System.out.print("Enter statas( 0 or 1 ) : ");
         String statas =addEmployee.nextLine();
-        
-        addToFile(id,name,password,email,phoneNumber,typeOfEmployee,statas);
+        String checkIn="08:00";
+
+        String checkOut="05:00";
+        //method to put info to -by mohammad
+        addToFile(id,name,password,email,phoneNumber,typeOfEmployee,statas,checkIn,checkOut,true);
         System.out.println("add employee "+name+" is done");
-        
+        managerInterfase();
     }
 
     private static void UpdateEmployee() {
         System.out.print(">>>>> Update Employee <<<<<\n"
                 + "Enter Id : ");
         int id =addEmployee.nextInt();
-        System.out.print("New Password : ");
-        int password =addEmployee.nextInt();
         
-        System.out.println("Id : "+id+" || Password : "+password);
+        ArrayList<ArrayList>employees=readFile();
+        for(ArrayList<String> row:employees){
+            if((id+"").equalsIgnoreCase(row.get(1))){
+                System.out.print("New Password : ");
+                addEmployee.nextLine();
+                String password =addEmployee.nextLine();
+                row.set(5, password);
+                writeArrayToFile(employees);
+                System.out.println("the employee"+row.get(3)+" Update is done");
+                break;
+            }
+        }
     }
 
     private static void deleteEmployee() {
         System.out.print(">>>>> Delete Employee <<<<<\n"
                         + "Enter Id : ");
         int id =addEmployee.nextInt();
-        System.out.print("New Password : ");
-        int password =addEmployee.nextInt();
-        
-        System.out.println("Id : "+id+" || Password : "+password);    }
+        ArrayList<ArrayList> employees=readFile();
+        for (ArrayList<String> oneRow : employees) {
+            if((id+"").equalsIgnoreCase(oneRow.get(1))){
+                System.out.println("employee "+oneRow.get(3)+"is deleted");
+                employees.remove(oneRow);
+                writeArrayToFile(employees);
+                break;
+            }
+        }
+          }
 
     private static void searchOneEmployee() {
         System.out.print(">>>>> Search about Employee <<<<<\n"
                 + "Enter Id : ");
         int id =addEmployee.nextInt();
-       
-        System.out.println("must get the name \nId : "+id);    
+       ArrayList<ArrayList> employees=readFile();
+        for (ArrayList<String> oneRow : employees) {
+            if((id+"").equals(oneRow.get(1))){
+                System.out.println("name : "+oneRow.get(3)+" status "+ oneRow.get(13));
+                break;
+            }
+        }
     }
 
     private static void reportOneEmployee() {
 System.out.print(">>>>> Report about Employee <<<<<\n"
         + "Enter Id : ");
         int id =addEmployee.nextInt();
-        
-        System.out.println("Id : "+id+" ||"
-                + " must get like that \nId: "+id+" ||"
-                + " Name: waled ||"
-                + " Email: njc@gmail.com ||"
-                + " Phone: 0597970400 ||"
-                + " Type Emp: 1 ||"
-                + " Statas: 1 ||"
-                + " Check out: 3:3");    
+        ArrayList<ArrayList>employees=readFile();
+        for(ArrayList<ArrayList> oneRow:employees){
+            if((id+"").equals(oneRow.get(1))){
+                System.out.println("Id: "+oneRow.get(1)+" ||"
+                + " Name: "+oneRow.get(3)+" ||"
+                + " Email: "+oneRow.get(7)+" ||"
+                + " Phone: "+oneRow.get(9)+" ||"
+                + " Type Emp: "+oneRow.get(11)+" ||"
+                + " Statas: "+oneRow.get(13)+" ||"
+                + " Check out: "+oneRow.get(15)
+                + " Check out: "+oneRow.get(17));
+                break;
+            }
+        }
+           
     }
 
     private static void reportAllEmployee() {
-System.out.println(">>>>> Report about All Employee <<<<<\n"
-                + " must get like that ||\n"
-                + " Id : 120160833 ||"
-                + " Name: waled ||"
-                + " Email: njc@gmail.com ||"
-                + " Phone: 0597970400 ||"
-                + " Type Emp: 1 ||"
-                + " Statas: 1 ||"
-                + " Check out: 3:3\n"
-                + " Id : 120160833 ||"
-                + " Name: waled ||"
-                + " Email: njc@gmail.com ||"
-                + " Phone: 0597970400 ||"
-                + " Type Emp: 1 ||"
-                + " Statas: 1 ||"
-                + " Check out: 3:3\n");
+            ArrayList<ArrayList>employees=readFile();
+        for(ArrayList<ArrayList> oneRow:employees){
+            
+                System.out.println("Id: "+oneRow.get(1)+" ||"
+                + " Name: "+oneRow.get(3)+" ||"
+                + " Email: "+oneRow.get(7)+" ||"
+                + " Phone: "+oneRow.get(9)+" ||"
+                + " Type Emp: "+oneRow.get(11)+" ||"
+                + " Statas: "+oneRow.get(13)+" ||"
+                + " Check out: "+oneRow.get(15)+" ||"
+                + " Check out: "+oneRow.get(17)); 
+                ;
             }
+        
+        }
 
     private static void statasEmployee() {
         System.out.println(">>>>> Deactivate & Activate Employee <<<<<\n"
@@ -164,8 +232,8 @@ System.out.println(">>>>> Report about All Employee <<<<<\n"
                             int time = attendance.nextInt();
                             attendance();
                             }
-                    else{managerInterfase();
         
+                    else{managerInterfase();
                                 
                     }
     }
@@ -244,24 +312,7 @@ System.out.println(">>>>> Report about All Employee <<<<<\n"
         }
     }
     
-    public static ArrayList<String> readFile(){
-        return null;
-    }
     
-    public static void writeFile(){
-       
-    }
-    public static void addToFile(int id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas){
-        try {
-            FileWriter fw =new FileWriter(mgrFile,true);
-            PrintWriter pr =new PrintWriter(fw,true);
-            String rightInfo=("ID: "+id +" "+"NAME: "+name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"Type_Of_Employee: "+ typeOfEmployee +" "+"STATUS: "+ statas + " ;");
-            pr.println(rightInfo);
-            pr.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 //    System.out.println("<<<<<<<Login Screen>>>>>>>");
 //        System.out.println("1- Admin");
 //        System.out.println("2- Manager");
