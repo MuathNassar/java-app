@@ -58,7 +58,7 @@ public static ArrayList<ArrayList> readFile(){
             addToFile(onerow.get(1), onerow.get(3),onerow.get(5),onerow.get(7), onerow.get(9), onerow.get(11), onerow.get(13), onerow.get(15), onerow.get(17), coun);
             coun=true;
 
-
+        }}
 public static void clearFile(){
     FileWriter fw = null;
         try {
@@ -78,22 +78,13 @@ public static void clearFile(){
 }
 
     
-    public static void writeArrayToFile(ArrayList<ArrayList> allRow){
-        boolean coun=false;
-        for (ArrayList<String> onerow : allRow) {
-            addToFile(onerow.get(1), onerow.get(3),onerow.get(5),onerow.get(7), onerow.get(9), onerow.get(11), onerow.get(13), onerow.get(15), onerow.get(17), coun);
-            coun=true;
 
-
-        }
-    }
     public static void addToFile(String id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas,String checkIn,String checkOut,boolean isTrue){
         try {
             //add one emp
             FileWriter fw =new FileWriter(mgrFile,isTrue);
             PrintWriter pr =new PrintWriter(fw,true);
 
-            String rightInfo=("ID: "+id +" "+"NAME: "+name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"Type_Of_Employee: "+ typeOfEmployee +" STATUS: "+ statas +" "+
 
             String rightInfo=("ID: "+id +" "+"NAME: "+name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+
                     email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"Type_Of_Employee: "+ typeOfEmployee +" STATUS: "+ statas +" "+
@@ -106,7 +97,8 @@ public static void clearFile(){
         }
 
 
-    }public static void addEmployeeToFileManager(String id,String name,String password,String email,String phoneNumber,String statas){
+    }
+    public static void addEmployeeToFileManager(String id,String name,String password,String email,String phoneNumber,String statas){
         try {
             //add one emp
             File manager=new File("manager.txt");
@@ -120,27 +112,7 @@ public static void clearFile(){
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static ArrayList<ArrayList> readFile(){
-        ArrayList<ArrayList> allRows=new ArrayList<>();
-        ArrayList<String> oneRow = new ArrayList<>();
-        try {
-            Scanner read=new Scanner(mgrFile);
-            while (read.hasNext()) {
-                String world = read.next();
-                if (!world.equals(";")) {
-                    oneRow.add(world);
-                }else{
-                    allRows.add((ArrayList)oneRow.clone());
-                    oneRow.clear();
-                }
-//                read.close();
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return allRows;
 
-    }
     private static void addEmployee() {
         //entering employee info -by mohammad
         System.out.print("<<<<< Add Employee >>>>>\n"
@@ -190,13 +162,10 @@ public static void clearFile(){
         System.out.print(">>>>> Delete Employee <<<<<\n"
                         + "Enter Id : ");
 
+        
+       
+            
         int id =addEmployee.nextInt();
-        ArrayList<ArrayList> employees=readFile();
-        for (ArrayList<String> oneRow : employees) {
-            if((id+"").equalsIgnoreCase(oneRow.get(1))){
-                System.out.println("employee "+oneRow.get(3)+"is deleted");
-
-        String id =addEmployee.nextLine();
         ArrayList<ArrayList> employees=readFile();
         for (ArrayList<String> oneRow : employees) {
             if((id+"").equalsIgnoreCase(oneRow.get(1))){
@@ -208,7 +177,7 @@ public static void clearFile(){
             }
         }
           }
-
+        
     private static void searchOneEmployee() {
         System.out.print(">>>>> Search about Employee <<<<<\n"
                 + "Enter Id : ");

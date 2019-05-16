@@ -27,12 +27,8 @@ import static javalabproject.Admin.adminInterface;
  */
 public class Main {
     public static void main(String[] args) {
-
-     startup();
-        
-
-        
-        Manager.managerInterfase();
+startup();
+   
 
    }
 
@@ -81,11 +77,7 @@ public class Main {
                 break;            
                 
        }  
-    }
-    
- 
-    
-    
+    }   
     public static boolean validateStuff(int id, String password, String path){
          boolean authentic = false;
          //start
@@ -108,7 +100,6 @@ public class Main {
          //end
          return authentic;
         }
-
     private static void startup(){
        String path = "Admin.txt";
        ArrayList<ArrayList> data = getFileData(path);
