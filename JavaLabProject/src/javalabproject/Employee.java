@@ -126,7 +126,7 @@ public class Employee {
             FileWriter fw = new FileWriter(empFile, true);
             PrintWriter pw = new PrintWriter(fw, true);
            
-            String writeInfo = ("\nID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"STATUS: "+ status +" "+"TYPE: "+type+" "+"CHECK_IN: "+this.checkIn+" CHECK_OUT: "+this.checkOut+" ;");
+            String writeInfo = ("ID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"STATUS: "+ status +" "+"TYPE: "+type+" "+"CHECK_IN: "+this.checkIn+" CHECK_OUT: "+this.checkOut+" ;");
             pw.println(writeInfo);
             
             pw.flush();
