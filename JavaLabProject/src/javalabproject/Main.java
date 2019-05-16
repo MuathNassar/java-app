@@ -124,11 +124,20 @@ public class Main {
    ArrayList<ArrayList> data = getFileData(path);
    for(ArrayList<String> row : data){ 
        if ((id+"").equalsIgnoreCase(row.get(1)) &&
-               password.equals(row.get(5))  &&
-               (row.get(11)+"").equalsIgnoreCase("1") )
+               password.equals(row.get(5))  )
        {
-             authentic = true;             
+           if (row.size()==18) {
+               if ((row.get(13)+"").equalsIgnoreCase("1")) {
+                   authentic = true;             
              break;
+               }
+           }else if(row.size()==12){
+               if ((row.get(11)+"").equalsIgnoreCase("1")) {
+                   authentic = true;             
+             break;
+               }
+           }
+             
        }
        
    }
@@ -159,7 +168,7 @@ public class Main {
         }
          return authentic; 
     }
-    private static void startup(){
+    static void startup(){
        String path = "Admin.txt";
        ArrayList<ArrayList> data = getFileData(path);
         if (data.isEmpty()) {

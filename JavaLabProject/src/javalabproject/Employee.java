@@ -122,19 +122,19 @@ public class Employee {
         // write to file
         
          
-        try {
-            FileWriter fw = new FileWriter(empFile, true);
-            PrintWriter pw = new PrintWriter(fw, true);
-           
-            String writeInfo = ("ID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"TYPE: "+type+" "+"STATUS: "+ status+" "+"CHECK_IN: "+this.checkIn+" CHECK_OUT: "+this.checkOut+" ;");
-            pw.println(writeInfo);
-            
-            pw.flush();
-            pw.close();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            FileWriter fw = new FileWriter(empFile, true);
+//            PrintWriter pw = new PrintWriter(fw, true);
+//           
+//            String writeInfo = ("ID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"Type_Of_Employee: "+type+" "+"STATUS: "+ status+" "+"CHECK_IN: "+this.checkIn+" CHECK_OUT: "+this.checkOut+" ;");
+//            pw.println(writeInfo);
+//            
+//            pw.flush();
+//            pw.close();
+//            
+//        } catch (IOException ex) {
+//            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     } 
     public void changePassword(){
         System.out.println("Enter New Password:");
