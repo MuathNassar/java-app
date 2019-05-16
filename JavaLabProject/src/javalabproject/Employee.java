@@ -33,6 +33,19 @@ public class Employee {
     private static File empFile = new  File(empPath);
     private static String holPath = "holidays.txt";
     private static File holFile = new  File(holPath);
+
+  
+
+    public void setCheckIn(String checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public void setCheckOut(String checkOut) {
+        this.checkOut = checkOut;
+    }
+    
+    
+    
     //getters
      public int getId() {
         return id;
