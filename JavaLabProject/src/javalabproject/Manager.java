@@ -6,9 +6,11 @@
 package javalabproject;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,17 +23,21 @@ import jdk.nashorn.internal.ir.BreakNode;
  * @author moadn
  */
 public class Manager {
-    String id="";
+    int id;
     String name;
     String password;
     String email;
     String phoneNumber;
     int status;
     static Scanner addEmployee =new Scanner(System.in);
-    private static String mgrPath = "employee.txt";
-    private static File mgrFile = new  File(mgrPath);
+    private String mgrPath = "employee.txt";
+    private File mgrFile = new  File(mgrPath);
 
-public static ArrayList<ArrayList> readFile(){
+    public Manager(int id) {
+        this.id=id;
+    }
+
+public ArrayList<ArrayList> readFile(){
         ArrayList<ArrayList> allRows=new ArrayList<>();
         ArrayList<String> oneRow = new ArrayList<>();
         try {
@@ -52,14 +58,14 @@ public static ArrayList<ArrayList> readFile(){
         return allRows;
     }
 
-    public static void writeArrayToFile(ArrayList<ArrayList> allRow){
+    public void writeArrayToFile(ArrayList<ArrayList> allRow){
         boolean coun=false;
         for (ArrayList<String> onerow : allRow) {
             addToFile(onerow.get(1), onerow.get(3),onerow.get(5),onerow.get(7), onerow.get(9), onerow.get(11), onerow.get(13), onerow.get(15), onerow.get(17), coun);
             coun=true;
 
         }}
-public static void clearFile(){
+public void clearFile(){
     FileWriter fw = null;
         try {
             fw = new FileWriter(mgrFile,false);
@@ -79,7 +85,7 @@ public static void clearFile(){
 
 
 
-    public static void addToFile(String id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas,String checkIn,String checkOut,boolean isTrue){
+    public void addToFile(String id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas,String checkIn,String checkOut,boolean isTrue){
         try {
             //add one emp
             FileWriter fw =new FileWriter(mgrFile,isTrue);
@@ -108,8 +114,22 @@ public static void clearFile(){
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private static void addEmployee() {
+public ArrayList<Holiday> getHolyDayData(){
+    ArrayList<Holiday>holyDays=new ArrayList<>();
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File("holidays.txt")));
+            Object x = objectInputStream.readObject();
+            holyDays=(ArrayList<Holiday>)x;
+            objectInputStream.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }return holyDays;
+}
+    private void addEmployee() {
         //entering employee info -by mohammad
         System.out.print("<<<<< Add Employee >>>>>\n"
                 + "Enter Id ");
@@ -132,10 +152,10 @@ public static void clearFile(){
         //method to put info to -by mohammad
         addToFile(id,name,password,email,phoneNumber,typeOfEmployee,statas,checkIn,checkOut,true);
         System.out.println("add employee "+name+" is done");
-        managerInterfase(id);
+        managerInterfase();
     }
 
-    private static void UpdateEmployee() {
+    private void UpdateEmployee() {
         System.out.print(">>>>> Update Employee <<<<<\n"
                 + "Enter Id : ");
         int id =addEmployee.nextInt();
@@ -149,12 +169,14 @@ public static void clearFile(){
                 row.set(5, password);
                 writeArrayToFile(employees);
                 System.out.println("the employee"+row.get(3)+" Update is done");
-                break;
+                managerInterfase();
             }
-        }
+                            
+
+        }managerInterfase();
     }
 
-    private static void deleteEmployee() {
+    private void deleteEmployee() {
         System.out.print(">>>>> Delete Employee <<<<<\n"
                         + "Enter Id : ");
 
@@ -162,16 +184,16 @@ public static void clearFile(){
         ArrayList<ArrayList> employees=readFile();
         for (ArrayList<String> oneRow : employees) {
             if((id+"").equalsIgnoreCase(oneRow.get(1))){
-                System.out.println("employee "+oneRow.get(5)+" is deleted");
+                System.out.println("employee "+oneRow.get(5)+" is deleted\n\n");
 
                 employees.remove(oneRow);
                 writeArrayToFile(employees);
-                break;
+                managerInterfase();
             }
-        }
+        }managerInterfase();
           }
 
-    private static void searchOneEmployee() {
+    private void searchOneEmployee() {
         System.out.print(">>>>> Search about Employee <<<<<\n"
                 + "Enter Id : ");
         int id =addEmployee.nextInt();
@@ -179,12 +201,12 @@ public static void clearFile(){
         for (ArrayList<String> oneRow : employees) {
             if((id+"").equals(oneRow.get(1))){
                 System.out.println("name : "+oneRow.get(3)+" status "+ oneRow.get(13));
-                break;
+                managerInterfase();
             }
-        }
+        }managerInterfase();
     }
 
-    private static void reportOneEmployee() {
+    private void reportOneEmployee() {
 System.out.print(">>>>> Report about Employee <<<<<\n"
         + "Enter Id : ");
         int id =addEmployee.nextInt();
@@ -199,13 +221,13 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                 + " Statas: "+oneRow.get(13)+" ||"
                 + " Check out: "+oneRow.get(15)
                 + " Check out: "+oneRow.get(17));
-                break;
+                managerInterfase();
             }
-        }
+        }managerInterfase();
 
     }
 
-    private static void reportAllEmployee() {
+    private void reportAllEmployee() {
             ArrayList<ArrayList>employees=readFile();
         for(ArrayList<ArrayList> oneRow:employees){
 
@@ -219,10 +241,10 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                 + " Check out: "+oneRow.get(17));
                 ;
             }
-
+            managerInterfase();
         }
 
-    private static void statasEmployee() {
+    private void statasEmployee() {
         System.out.println(">>>>> Deactivate & Activate Employee <<<<<\n"
                 + "1- Activate.\n"
                 + "2- Deactivate.\n"
@@ -251,19 +273,19 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                                 if((id+"").equals(oneRow.get(1))){
                                     oneRow.set(13, "0"); //deactivated
                                     writeArrayToFile(employee);
-                                    break;
+                                    statasEmployee();
                                 }
                             }
-                        statasEmployee();
+                        
                             }
-                    else{managerInterfase("");
+                    else{managerInterfase();
 
 
                     }
 
     }
 
-    private static void employeeToManager() {
+    private void employeeToManager() {
 
 
                     ArrayList<ArrayList>employees=readFile();
@@ -287,17 +309,18 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                              employees.remove(oneRow);
                              if (employees.isEmpty()) {
                                  clearFile();
-                                 break;
+                                 System.out.println("Add employee thats no one : ");
+                                 managerInterfase();
                              }else{
                                  writeArrayToFile(employees);
-                                 break;
+                                 managerInterfase();
                              }
-                         }
+                         }managerInterfase();
                     }
 
     }
 
-    private static void attendance() {
+    private void attendance() {
         Scanner attendance = new Scanner(System.in);
         System.out.print(">>>>> Attendance <<<<<\n"
                     + "1- Time of attendance.\n"
@@ -331,32 +354,34 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                             attendance();
                             }
 
-                    else{managerInterfase("");
+                    else{managerInterfase();
 
                     }
     }
 
-    public static void myHolidays(){
-       ArrayList<Holiday> listOfAllHolidays = Holiday.getHolData();
+    public void myHolidays(){
+       ArrayList<Holiday> listOfAllHolidays = getHolyDayData();
        ArrayList<Holiday> listOfMyHolidays = new ArrayList<>();
        for(Holiday h : listOfAllHolidays){
-               listOfMyHolidays.add(h);
+           if(h.getId()== this.id) {
+                listOfMyHolidays.add(h);
+           }   
            
        }
        for(Holiday hol : listOfMyHolidays){
            System.out.println(hol.toString());
        }
     }
-    private static void holiday() {
+    private void holiday() {
         System.out.println(">>>>> Holiday <<<<<\n"
                 + "1-My Holiday.\n"
                 + "2-Creat Holiday.\n"
                 + "3-Exit.");
         int choice=addEmployee.nextInt();
         if(choice==1){
-            System.out.println(">>>>> My Holiday <<<<<\n"
-                    + "Id :name:reson details date cheak");
+            System.out.println(">>>>> My Holiday <<<<<\n");
             myHolidays();
+            holiday();
         }else if(choice==2){
             System.out.print(">>>>> Creat Holiday <<<<<\n"
                 + "Enter Name : ");
@@ -369,10 +394,11 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
         System.out.print("Enter Date : ");
         String date=addEmployee.nextLine();
         Holiday holiday = new Holiday(name, reson, details, date);
-        holiday.setId(111);
+        holiday.setId(this.id);
         holiday.writeHolidayToFile();
+        holiday();
         }else if(choice==3){
-            managerInterfase("");
+            managerInterfase();
         }
 
 
@@ -382,7 +408,7 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
 
 
 
-    public static void managerInterfase(String id){
+    public void managerInterfase(){
         System.out.println(">>>>> Manager <<<<< \n"
                 + "1- Add Employee\n"
                 + "2- Update Employee\n"

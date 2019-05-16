@@ -147,5 +147,9 @@ public class Holiday implements Serializable{
     public String toString() {
         return "id:" + id + " || name:" + name + " || reason:" + reason + " || Details:" + Details + " || date:" + date + " || check=" + check ;
     }  
+
+    void setId(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
   }  
 

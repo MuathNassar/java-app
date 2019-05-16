@@ -98,8 +98,8 @@ public class Employee {
               this.password = row.get(5);
               this.email = row.get(7);
               this.phoneNumber = row.get(9);
-              this.status = Integer.parseInt(row.get(11)) ;
-              this.type = Integer.parseInt(row.get(13));
+              this.status = Integer.parseInt(row.get(13)) ;
+              this.type = Integer.parseInt(row.get(11));
 //              this.checkIn = row.get(15);
 //              this.checkOut = row.get(17);
               
@@ -111,7 +111,7 @@ public class Employee {
         //2
     }
  
-    public Employee(int id, String name, String password, String email, String phoneNumber, int status, int type) {
+    public Employee(int id, String name, String password, String email, String phoneNumber, int type,int status) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -126,7 +126,7 @@ public class Employee {
             FileWriter fw = new FileWriter(empFile, true);
             PrintWriter pw = new PrintWriter(fw, true);
            
-            String writeInfo = ("ID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"STATUS: "+ status +" "+"TYPE: "+type+" "+"CHECK_IN: "+this.checkIn+" CHECK_OUT: "+this.checkOut+" ;");
+            String writeInfo = ("ID: "+id +" "+"NAME: "+ name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"TYPE: "+type+" "+"STATUS: "+ status+" "+"CHECK_IN: "+this.checkIn+" CHECK_OUT: "+this.checkOut+" ;");
             pw.println(writeInfo);
             
             pw.flush();

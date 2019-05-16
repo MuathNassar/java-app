@@ -70,7 +70,8 @@ public class Main {
                 int id = Integer.parseInt(ID);
                 
                 if (validateStuff(id, password, path)) {
-                    Manager.managerInterfase(id+"");
+                    Manager manager=new Manager(id);
+                    manager.managerInterfase();
                 }else{
                     startup();
                 }
@@ -95,9 +96,9 @@ public class Main {
                            String empPass = row.get(5);
                            String empEmail = row.get(7);
                            String empPhone = row.get(9);
-                           String empStatus = row.get(11);
-                           String emptype = row.get(13);
-                           Employee emp = new Employee(id, empName, password, empEmail, empPhone, Integer.parseInt(empStatus), Integer.parseInt(emptype));
+                           String empStatus = row.get(13);
+                           String emptype = row.get(11);
+                           Employee emp = new Employee(id, empName, password, empEmail, empPhone, Integer.parseInt(emptype), Integer.parseInt(empStatus));
                          
                            String empIn = row.get(15);
                            String empOut = row.get(17);
