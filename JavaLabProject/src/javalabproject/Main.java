@@ -28,7 +28,7 @@ import static javalabproject.Admin.adminInterface;
 public class Main {
     public static void main(String[] args) {
      
-       
+       startup();
         
    }
     public static  void loginInterface(){
