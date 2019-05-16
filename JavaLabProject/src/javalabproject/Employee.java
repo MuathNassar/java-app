@@ -179,9 +179,9 @@ try {
       return allRows;
     }     
     private static void writeRowsToFile(ArrayList<ArrayList> rows){
-        ;
+        
     try {
-        File file = new File("managersUpdate.txt");//file temp
+        File file = new File("managers.txt");//file temp
        FileWriter fw = new FileWriter(file,false);
         PrintWriter pw = new PrintWriter(fw);
         for(ArrayList<String> row : rows ){
