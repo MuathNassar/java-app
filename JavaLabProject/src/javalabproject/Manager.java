@@ -21,7 +21,7 @@ import jdk.nashorn.internal.ir.BreakNode;
  * @author moadn
  */
 public class Manager {
-    int id;
+    String id="";
     String name;
     String password;
     String email;
@@ -51,7 +51,7 @@ public static ArrayList<ArrayList> readFile(){
         }
         return allRows;
     }
-    
+
     public static void writeArrayToFile(ArrayList<ArrayList> allRow){
         boolean coun=false;
         for (ArrayList<String> onerow : allRow) {
@@ -77,8 +77,8 @@ public static void clearFile(){
         }
 }
 
-    
-    
+
+
     public static void addToFile(String id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas,String checkIn,String checkOut,boolean isTrue){
         try {
             //add one emp
@@ -108,7 +108,7 @@ public static void clearFile(){
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private static void addEmployee() {
         //entering employee info -by mohammad
         System.out.print("<<<<< Add Employee >>>>>\n"
@@ -132,14 +132,14 @@ public static void clearFile(){
         //method to put info to -by mohammad
         addToFile(id,name,password,email,phoneNumber,typeOfEmployee,statas,checkIn,checkOut,true);
         System.out.println("add employee "+name+" is done");
-        managerInterfase();
+        managerInterfase(id);
     }
 
     private static void UpdateEmployee() {
         System.out.print(">>>>> Update Employee <<<<<\n"
                 + "Enter Id : ");
         int id =addEmployee.nextInt();
-        
+
         ArrayList<ArrayList>employees=readFile();
         for(ArrayList<String> row:employees){
             if((id+"").equalsIgnoreCase(row.get(1))){
@@ -202,13 +202,13 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                 break;
             }
         }
-           
+
     }
 
     private static void reportAllEmployee() {
             ArrayList<ArrayList>employees=readFile();
         for(ArrayList<ArrayList> oneRow:employees){
-            
+
                 System.out.println("Id: "+oneRow.get(1)+" ||"
                 + " Name: "+oneRow.get(3)+" ||"
                 + " Email: "+oneRow.get(7)+" ||"
@@ -216,10 +216,10 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                 + " Type Emp: "+oneRow.get(11)+" ||"
                 + " Statas: "+oneRow.get(13)+" ||"
                 + " Check out: "+oneRow.get(15)+" ||"
-                + " Check out: "+oneRow.get(17)); 
+                + " Check out: "+oneRow.get(17));
                 ;
             }
-        
+
         }
 
     private static void statasEmployee() {
@@ -256,26 +256,26 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                             }
                         statasEmployee();
                             }
-                    else{managerInterfase();
-        
-                                
+                    else{managerInterfase("");
+
+
                     }
-       
+
     }
 
     private static void employeeToManager() {
-                    
-                    
+
+
                     ArrayList<ArrayList>employees=readFile();
                     if (employees.isEmpty()) {
                                  addEmployee();
                              }
                     System.out.print(">>>>> Promote Employee to Manager <<<<<\n"
                     + "Enter id : ");
-                    int id=addEmployee.nextInt(); 
+                    int id=addEmployee.nextInt();
 
                     for (ArrayList oneRow : employees) {
-                        
+
                          if((id+"").equals(oneRow.get(1))){
                              String mId=oneRow.get(1)+"";
                              String name =""+oneRow.get(3);
@@ -330,47 +330,59 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                                 }
                             attendance();
                             }
-        
-                    else{managerInterfase();
-                                
+
+                    else{managerInterfase("");
+
                     }
     }
-    
 
+    public static void myHolidays(){
+       ArrayList<Holiday> listOfAllHolidays = Holiday.getHolData();
+       ArrayList<Holiday> listOfMyHolidays = new ArrayList<>();
+       for(Holiday h : listOfAllHolidays){
+               listOfMyHolidays.add(h);
+           
+       }
+       for(Holiday hol : listOfMyHolidays){
+           System.out.println(hol.toString());
+       }
+    }
     private static void holiday() {
         System.out.println(">>>>> Holiday <<<<<\n"
                 + "1-My Holiday.\n"
                 + "2-Creat Holiday.\n"
-                + "3-Exit.");    
+                + "3-Exit.");
         int choice=addEmployee.nextInt();
         if(choice==1){
             System.out.println(">>>>> My Holiday <<<<<\n"
                     + "Id :name:reson details date cheak");
-            holiday();
+            myHolidays();
         }else if(choice==2){
             System.out.print(">>>>> Creat Holiday <<<<<\n"
-                + "Enter Name : ");    
+                + "Enter Name : ");
             addEmployee.nextLine();
         String name=addEmployee.nextLine();
-        System.out.print("Enter Reason : ");    
+        System.out.print("Enter Reason : ");
         String reson=addEmployee.nextLine();
-        System.out.print("Enter Details : ");    
+        System.out.print("Enter Details : ");
         String details=addEmployee.nextLine();
-        System.out.print("Enter Date : ");    
+        System.out.print("Enter Date : ");
         String date=addEmployee.nextLine();
-        holiday();
+        Holiday holiday = new Holiday(name, reson, details, date);
+        holiday.setId(111);
+        holiday.writeHolidayToFile();
         }else if(choice==3){
-            managerInterfase();
+            managerInterfase("");
         }
-        
-        
-    }
-    
-   
-    
 
-    
-    public static void managerInterfase(){
+
+    }
+
+
+
+
+
+    public static void managerInterfase(String id){
         System.out.println(">>>>> Manager <<<<< \n"
                 + "1- Add Employee\n"
                 + "2- Update Employee\n"
@@ -409,8 +421,8 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
             case 11:break;
         }
     }
-    
-    
+
+
 //    System.out.println("<<<<<<<Login Screen>>>>>>>");
 //        System.out.println("1- Admin");
 //        System.out.println("2- Manager");
@@ -423,17 +435,17 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
 //            case "2":             login("managers");
 //                break;
 //            case "3":             login("employee");
-//                break;            
-//                
+//                break;
+//
 //       }
     //area to try start
 //   Employee e = new Employee(1);
 //        e.timeOfDeparture();
 
-    //area to try end   
+    //area to try end
 
-    } 
-    
+    }
+
 //    public static boolean login(String fileName){
 //        Scanner s = new Scanner(System.in);
 //        System.out.println("2- Id");
@@ -443,8 +455,8 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
 //        validate(id, password, fileName);
 //        return true;
 //    };
-//    
-//    
+//
+//
 //    public static boolean validate(String id, String password, String fileName){
 //            if(fileName.equals("admin")){
 //                adminInterface();
@@ -458,7 +470,7 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
 //            return false;
 //        }
 
-    
-    
-    
+
+
+
 //}
