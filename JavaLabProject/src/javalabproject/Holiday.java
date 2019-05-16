@@ -82,8 +82,6 @@ public class Holiday implements Serializable{
     public Holiday(String name) {
         this.name = name;
     }
-    
-
     public Holiday(String name, String reason, String Details, String date) {
         this.name = name;
         this.reason = reason;
