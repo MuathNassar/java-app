@@ -1,3 +1,5 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,24 +29,10 @@ import static javalabproject.Admin.adminInterface;
  */
 public class Main {
     public static void main(String[] args) {
-
      
        startup();
-
-
-     startup();
-
         
-
-        Manager.managerInterfase("12016");
-
    }
-
-        
-   
-
-   
-
     public static  void loginInterface(){
      
        
@@ -56,7 +44,21 @@ public class Main {
         String choice = s.nextLine();
         switch(choice){
             case "1": 
+                 {
                 
+                System.out.println("Enter ID");
+                String ID = s.nextLine();
+                System.out.println("Enter Password");
+                String password = s.nextLine();
+                int id = Integer.parseInt(ID);
+                
+                if (validateAdmn(id, password)) {
+                    adminInterface();
+                }else{
+                    startup();
+                }
+                
+            }
                 break;
             case "2":  
             {
@@ -66,53 +68,96 @@ public class Main {
                 System.out.println("Enter Password");
                 String password = s.nextLine();
                 int id = Integer.parseInt(ID);
-                validateStuff(id, password, path);
                 
+                if (validateStuff(id, password, path)) {
+                    Manager.managerInterfase();
+                }else{
+                    startup();
+                }
                 
             }
                 break;
             case "3": 
-                {
+               {
                 String path = "employee.txt";
                 System.out.println("Enter ID");
                 String ID = s.nextLine();
                 System.out.println("Enter Password");
                 String password = s.nextLine();
                 int id = Integer.parseInt(ID);
-                validateStuff(id, password, path);
+                
+                if (validateStuff(id, password, path)) {
+                   //start
+                   ArrayList<ArrayList> data = Employee.getEmpFile();
+                   for(ArrayList<String> row: data){
+                       if ((id+"").equalsIgnoreCase(row.get(1))) {
+                           String empName = row.get(3);
+                           String empPass = row.get(5);
+                           String empEmail = row.get(7);
+                           String empPhone = row.get(9);
+                           String empStatus = row.get(11);
+                           String emptype = row.get(13);
+                           Employee emp = new Employee(id, empName, password, empEmail, empPhone, Integer.parseInt(empStatus), Integer.parseInt(emptype));
+                         
+                           String empIn = row.get(15);
+                           String empOut = row.get(17);
+                           emp.setCheckIn(empIn);
+                           emp.setCheckOut(empOut);
+                           emp.employeeInterface();
+                       }
+                   }
+                   //end
+                   
+                }else{
+                    startup();
+                }
                 
             }
                 break;            
                 
        }  
     }
-    
- 
-    
-    
     public static boolean validateStuff(int id, String password, String path){
          boolean authentic = false;
          //start
-
    ArrayList<ArrayList> data = getFileData(path);
-   for(ArrayList<String> row : data){
-       System.out.println(row);
+   for(ArrayList<String> row : data){ 
        if ((id+"").equalsIgnoreCase(row.get(1)) &&
                password.equals(row.get(5))  &&
                (row.get(11)+"").equalsIgnoreCase("1") )
        {
              authentic = true;             
              break;
-       }else{ 
-           System.out.println("Somthing is wrong . Please ask fo admin advice");
        }
        
    }
          
          //end
+         if (!authentic) {
+             System.out.println("You can't log in , check admin please");
+        }
          return authentic;
         }
-
+    public static boolean validateAdmn(int id, String password){
+        boolean authentic = false;
+         //start
+   ArrayList<ArrayList> data = getFileData("Admin.txt");
+   for(ArrayList<String> row : data){ 
+       if ((id+"").equalsIgnoreCase(row.get(1)) &&
+               password.equals(row.get(5)) )
+       {
+             authentic = true;             
+             break;
+       }
+       
+   }
+         
+         //end
+         if (!authentic) {
+             System.out.println("You can't log in , check admin please");
+        }
+         return authentic; 
+    }
     private static void startup(){
        String path = "Admin.txt";
        ArrayList<ArrayList> data = getFileData(path);
@@ -173,4 +218,5 @@ try {
     }
     }
     
+
 
