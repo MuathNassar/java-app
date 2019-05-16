@@ -70,7 +70,7 @@ public class Main {
                 int id = Integer.parseInt(ID);
                 
                 if (validateStuff(id, password, path)) {
-                    Manager.managerInterfase();
+                    Manager.managerInterfase(id+"");
                 }else{
                     startup();
                 }
