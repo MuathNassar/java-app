@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jdk.nashorn.internal.ir.BreakNode;
 
 /**
  *
@@ -29,7 +30,61 @@ public class Manager {
     static Scanner addEmployee =new Scanner(System.in);
     private static String mgrPath = "employee.txt";
     private static File mgrFile = new  File(mgrPath);
-public static ArrayList<ArrayList> readFile(){
+public static void clearFile(){
+    FileWriter fw = null;
+        try {
+            fw = new FileWriter(mgrFile,false);
+            PrintWriter pw=new PrintWriter(fw,false);
+            pw.print("");
+            pw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+}
+
+    
+    public static void writeArrayToFile(ArrayList<ArrayList> allRow){
+        boolean coun=false;
+        for (ArrayList<String> onerow : allRow) {
+            addToFile(onerow.get(1), onerow.get(3),onerow.get(5),onerow.get(7), onerow.get(9), onerow.get(11), onerow.get(13), onerow.get(15), onerow.get(17), coun);
+            coun=true;
+
+        }
+    }
+    public static void addToFile(String id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas,String checkIn,String checkOut,boolean isTrue){
+        try {
+            //add one emp
+            FileWriter fw =new FileWriter(mgrFile,isTrue);
+            PrintWriter pr =new PrintWriter(fw,true);
+            String rightInfo=("ID: "+id +" "+"NAME: "+name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+
+                    email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"Type_Of_Employee: "+ typeOfEmployee +" STATUS: "+ statas +" "+
+                    "CHECK_IN: "+ checkIn+" CHECK_OUT: "+checkOut+ " ;");
+            pr.println(rightInfo);
+            pr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }public static void addEmployeeToFileManager(String id,String name,String password,String email,String phoneNumber,String statas){
+        try {
+            //add one emp
+            File manager=new File("manager.txt");
+            FileWriter fw =new FileWriter(manager,true);
+            PrintWriter pr =new PrintWriter(fw,true);
+            String rightInfo=("ID: "+id +" NAME: "+name +" PASSWORD: "+ password +" EMAIL: "+
+                    email +" PHONE_NUMBER: "+ phoneNumber +" STATUS: "+ statas +" ;");
+            pr.println(rightInfo);
+            pr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static ArrayList<ArrayList> readFile(){
         ArrayList<ArrayList> allRows=new ArrayList<>();
         ArrayList<String> oneRow = new ArrayList<>();
         try {
@@ -48,28 +103,6 @@ public static ArrayList<ArrayList> readFile(){
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return allRows;
-    }
-    
-    public static void writeArrayToFile(ArrayList<ArrayList> allRow){
-        boolean coun=false;
-        for (ArrayList<String> onerow : allRow) {
-            addToFile(onerow.get(1), onerow.get(3),onerow.get(5),onerow.get(7), onerow.get(9), onerow.get(11), onerow.get(13), onerow.get(15), onerow.get(17), coun);
-            coun=true;
-
-        }
-    }
-    public static void addToFile(String id,String name,String password,String email,String phoneNumber,String typeOfEmployee,String statas,String checkIn,String checkOut,boolean isTrue){
-        try {
-            //add one emp
-            FileWriter fw =new FileWriter(mgrFile,isTrue);
-            PrintWriter pr =new PrintWriter(fw,true);
-            String rightInfo=("ID: "+id +" "+"NAME: "+name +" "+"PASSWORD: "+ password +" "+"EMAIL: "+ email +" "+"PHONE_NUMBER: "+ phoneNumber +" "+"Type_Of_Employee: "+ typeOfEmployee +" STATUS: "+ statas +" "+
-                    "CHECK_IN: "+ checkIn+" CHECK_OUT: "+checkOut+ " ;");
-            pr.println(rightInfo);
-            pr.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     private static void addEmployee() {
         //entering employee info -by mohammad
@@ -119,11 +152,11 @@ public static ArrayList<ArrayList> readFile(){
     private static void deleteEmployee() {
         System.out.print(">>>>> Delete Employee <<<<<\n"
                         + "Enter Id : ");
-        int id =addEmployee.nextInt();
+        String id =addEmployee.nextLine();
         ArrayList<ArrayList> employees=readFile();
         for (ArrayList<String> oneRow : employees) {
             if((id+"").equalsIgnoreCase(oneRow.get(1))){
-                System.out.println("employee "+oneRow.get(3)+"is deleted");
+                System.out.println("employee "+oneRow.get(5)+" is deleted");
                 employees.remove(oneRow);
                 writeArrayToFile(employees);
                 break;
@@ -192,12 +225,28 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                         {System.out.print(">>>>> Activate Employee <<<<<\n"
                     + "Enter id : ");
                     int id=addEmployee.nextInt();
+                    ArrayList<ArrayList>employee=readFile();
+                            for (ArrayList oneRow : employee) {
+                                if((id+"").equals(oneRow.get(1))){
+                                    oneRow.set(13, "1"); //Activated
+                                    writeArrayToFile(employee);
+                                    break;
+                                }
+                            }
 
                     statasEmployee();
                         }
                     else if(choice==2){System.out.print(">>>>> Deactivated Employee <<<<<\n"
                     + "Enter id : ");
                         int id=addEmployee.nextInt();
+                        ArrayList<ArrayList>employee=readFile();
+                            for (ArrayList oneRow : employee) {
+                                if((id+"").equals(oneRow.get(1))){
+                                    oneRow.set(13, "0"); //deactivated
+                                    writeArrayToFile(employee);
+                                    break;
+                                }
+                            }
                         statasEmployee();
                             }
                     else{managerInterfase();
@@ -208,9 +257,37 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
     }
 
     private static void employeeToManager() {
+                    
+                    
+                    ArrayList<ArrayList>employees=readFile();
+                    if (employees.isEmpty()) {
+                                 addEmployee();
+                             }
                     System.out.print(">>>>> Promote Employee to Manager <<<<<\n"
                     + "Enter id : ");
-                    int id=addEmployee.nextInt();    
+                    int id=addEmployee.nextInt(); 
+
+                    for (ArrayList oneRow : employees) {
+                        
+                         if((id+"").equals(oneRow.get(1))){
+                             String mId=oneRow.get(1)+"";
+                             String name =""+oneRow.get(3);
+                             String password =""+oneRow.get(5);
+                             String email =""+oneRow.get(7);
+                             String phoneNumber =""+oneRow.get(9);
+                             String status =""+oneRow.get(13);
+                             addEmployeeToFileManager(mId, name, password, email, phoneNumber, status);
+                             employees.remove(oneRow);
+                             if (employees.isEmpty()) {
+                                 clearFile();
+                                 break;
+                             }else{
+                                 writeArrayToFile(employees);
+                                 break;
+                             }
+                         }
+                    }
+
     }
 
     private static void attendance() {
@@ -222,14 +299,28 @@ System.out.print(">>>>> Report about Employee <<<<<\n"
                     int choice=attendance.nextInt();
                     if(choice==1)
                         {System.out.print(">>>>> Time of attendance <<<<<\n"
-                                + "Enter the Time : ");
-                                int time = attendance.nextInt();
+                                + "Enter the Time :\nhours : ");
+                                int hours = attendance.nextInt();
+                                System.out.print("menutes : ");
+                                int minutes = attendance.nextInt();
+                                ArrayList<ArrayList>employees=readFile();
+                                for (ArrayList<String> oneRow : employees) {
+                                    oneRow.set(15,hours+":"+minutes);
+                                    writeArrayToFile(employees);
+                                }
                                 attendance();
                         }
                     else if(choice==2){
                             System.out.print(">>>>> Time to leave <<<<<\n"
-                            + "Enter the Time : ");
-                            int time = attendance.nextInt();
+                            + "Enter the Time : hours : ");
+                            int hours = attendance.nextInt();
+                                System.out.print("menutes : ");
+                                int minutes = attendance.nextInt();
+                                ArrayList<ArrayList>employees=readFile();
+                                for (ArrayList<String> oneRow : employees) {
+                                    oneRow.set(17,hours+":"+minutes);
+                                    writeArrayToFile(employees);
+                                }
                             attendance();
                             }
         
