@@ -412,7 +412,7 @@ try {
         int id  = keyboard.nextInt();
         ArrayList<Holiday> listOfHolidays = Holiday.getHolData();
         for(Holiday holiday: listOfHolidays){
-            if (holiday.getId() == id && holiday.getCheck()==0) {
+            if (holiday.getId() == id && holiday.getCheck()!=1) {
                 
                 holiday.setCheck(1); 
                 break;
