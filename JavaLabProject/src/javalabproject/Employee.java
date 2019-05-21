@@ -144,6 +144,7 @@ public class Employee {
         data = getEmpFile();
            for(ArrayList<String> row : data){
        if ((id+"").equalsIgnoreCase(row.get(1))){
+           
              String empName = row.get(3);
              row.set(5, password);            
              writeRowsToFile(data);
@@ -181,13 +182,13 @@ try {
     private static void writeRowsToFile(ArrayList<ArrayList> rows){
         
     try {
-        File file = new File("managers.txt");//file temp
+        File file = new File("employee.txt");//file temp
        FileWriter fw = new FileWriter(file,false);
         PrintWriter pw = new PrintWriter(fw);
         for(ArrayList<String> row : rows ){
            
             try {
-                 pw.println(row.get(0)+" "+row.get(1)+" "+row.get(2)+" "+row.get(3)+" "+row.get(4)+" "+row.get(5)+" "+row.get(6)+" "+row.get(7)+" "+row.get(8)+" "+row.get(9)+" "+row.get(10)+" "+row.get(11)+" "+row.get(11)+" "+row.get(12)+" "+row.get(13)+" "+row.get(14)+" "+row.get(15)+" "+row.get(16)+" "+row.get(17)+" ;");
+                 pw.println(row.get(0)+" "+row.get(1)+" "+row.get(2)+" "+row.get(3)+" "+row.get(4)+" "+row.get(5)+" "+row.get(6)+" "+row.get(7)+" "+row.get(8)+" "+row.get(9)+" "+row.get(10)+" "+row.get(11)+" "+row.get(12)+" "+row.get(13)+" "+row.get(14)+" "+row.get(15)+" "+row.get(16)+" "+row.get(17)+" ;");
 
             } catch (ArrayIndexOutOfBoundsException e) {
             }
